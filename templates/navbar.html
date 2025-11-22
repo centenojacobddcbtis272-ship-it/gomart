@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+
+        <!-- LOGO -->
+        <a class="navbar-brand fw-bold text-primary" href="{{ url_for('index') }}">
+            <i class="fa fa-store text-primary me-1"></i> GoMart
+        </a>
+
+        <!-- Botón Móvil -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMain">
+
+            <!-- LINKS IZQUIERDA -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path=='/' %}active{% endif %}" href="{{ url_for('index') }}">
+                        Inicio
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path.startswith('/productos') %}active{% endif %}"
+                        href="{{ url_for('productos') }}">
+                        Productos
+                    </a>
+                </li>
+
+                {% if user %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path=='/carrito' %}active{% endif %}"
+                        href="{{ url_for('carrito') }}">
+                        Carrito
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if user and user.rol == "Administrador" %}
+                <!-- MENU ADMIN -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-danger fw-bold" href="#" id="adminMenu" role="button"
+                        data-bs-toggle="dropdown">
+                        Admin
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ url_for('admin_home') }}">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('admin_productos') }}">Productos</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('admin_usuarios') }}">Usuarios</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+
+            </ul>
+
+            <!-- BUSCADOR -->
+            <form class="d-flex me-3" action="{{ url_for('productos') }}">
+                <input class="form-control search-input" name="q" type="search" placeholder="Buscar productos...">
+            </form>
+
+            <!-- LOGIN / USUARIO -->
+            <div class="d-flex align-items-center gap-2">
+
+                {% if not user %}
+                <!-- Login -->
+                <a class="btn btn-outline-primary" href="{{ url_for('login') }}">
+                    Iniciar sesión
+                </a>
+
+                <!-- Registro -->
+                <a class="btn btn-primary" href="{{ url_for('registro') }}">
+                    Registrarse
+                </a>
+
+                {% else %}
+
+                <!-- Nombre usuario -->
+                <span class="text-muted small me-2">
+                    👤 {{ user.nombre_completo }}
+                </span>
+
+                <!-- Carrito visible siempre -->
+                <a class="btn btn-outline-primary position-relative me-3" href="{{ url_for('carrito') }}">
+                    <i class="fa fa-shopping-cart fa-lg"></i>
+
+                    <span id="carrito-count" class="badge bg-danger rounded-pill"
+                        style="position:absolute; top:-6px; right:-6px; display:none;">
+                        0
+                    </span>
+                </a>
+
+
+
+                <!-- Logout -->
+                <a class="btn btn-outline-danger" href="{{ url_for('logout') }}">
+                    Cerrar sesión
+                </a>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</nav>

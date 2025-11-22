@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="mb-4">Método de pago</h3>
+
+<div class="card shadow-sm p-4">
+
+    <h5>Total a pagar: <strong>${{ "%.2f"|format(total) }}</strong></h5>
+    <hr>
+
+    <form method="POST">
+
+        <label class="fw-bold">Selecciona método de pago</label>
+        <div class="mb-3">
+            <select class="form-select" name="metodo" required>
+                <option value="">Seleccionar...</option>
+                <option value="tarjeta">Tarjeta de crédito/débito</option>
+                <option value="oxxo">Pago en OXXO</option>
+                <option value="efectivo">Efectivo en tienda</option>
+            </select>
+        </div>
+
+        <!-- Si elige tarjeta -->
+        <div id="tarjeta-info" style="display:none;">
+            <label class="fw-bold">Datos de tarjeta</label>
+            <input class="form-control mb-2" placeholder="Número de tarjeta">
+            <input class="form-control mb-2" placeholder="MM/AA">
+            <input class="form-control mb-3" placeholder="CVV">
+        </div>
+
+        <button class="btn btn-success w-100">Pagar</button>
+
+    </form>
+</div>
+
+<script>
+    document.querySelector("select[name='metodo']").addEventListener("change", function () {
+        document.getElementById("tarjeta-info").style.display =
+            this.value === "tarjeta" ? "block" : "none";
+    });
+</script>
+
+{% endblock %}

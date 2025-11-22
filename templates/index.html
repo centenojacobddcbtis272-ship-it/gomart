@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HERO dinámico -->
+<header id="home" class="container mt-4">
+    <div class="hero p-4 p-md-5 rounded-4">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-6 mb-3">{{ hero_title }}</h1>
+                <p class="lead text-muted">{{ hero_subtitle }}</p>
+            </div>
+            <div class="col-md-6 text-center mt-4 mt-md-0">
+                <img src="{{ hero_image }}" class="img-fluid rounded-3" style="max-height:360px; object-fit:cover">
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="container my-5">
+
+    <!-- ========================= -->
+    <!-- ========================= -->
+    <!--  CATEGORÍAS RÁPIDAS      -->
+    <!-- ========================= -->
+    <section class="my-5">
+        <h2 class="mb-4">Compra por categoría</h2>
+
+        <div class="row g-4">
+
+            <!-- BEBIDAS -->
+            <div class="col-6 col-md-3 text-center">
+                <a href="{{ url_for('productos') }}?categoria=Bebidas" class="text-decoration-none text-dark">
+                    <div class="p-3 shadow-sm rounded-4 bg-white h-100">
+                        <img src="https://www.shutterstock.com/image-vector/ice-cup-drink-logo-vector-260nw-1411500986.jpg"
+                            width="60">
+                        <h6 class="mt-2">Bebidas</h6>
+                    </div>
+                </a>
+            </div>
+
+            <!-- SNACKS -->
+            <div class="col-6 col-md-3 text-center">
+                <a href="{{ url_for('productos') }}?categoria=Snacks" class="text-decoration-none text-dark">
+                    <div class="p-3 shadow-sm rounded-4 bg-white h-100">
+                        <img src="https://tmfoodsaustin.com/wp-content/uploads/2022/08/snacks-tm-x6-1024x1024.jpg"
+                            width="60">
+                        <h6 class="mt-2">Snacks</h6>
+                    </div>
+                </a>
+            </div>
+
+            <!-- DULCES -->
+            <div class="col-6 col-md-3 text-center">
+                <a href="{{ url_for('productos') }}?categoria=Dulces" class="text-decoration-none text-dark">
+                    <div class="p-3 shadow-sm rounded-4 bg-white h-100">
+                        <img src="https://static.vecteezy.com/system/resources/previews/006/208/290/non_2x/colorful-candy-shop-concept-logo-vector.jpg"
+                            width="60">
+                        <h6 class="mt-2">Dulces</h6>
+                    </div>
+                </a>
+            </div>
+
+            <!-- ABARROTES -->
+            <div class="col-6 col-md-3 text-center">
+                <a href="{{ url_for('productos') }}?categoria=Abarrotes" class="text-decoration-none text-dark">
+                    <div class="p-3 shadow-sm rounded-4 bg-white h-100">
+                        <img src="https://comerciante.lacuarta.com/wp-content/uploads/2023/04/Tema-02-abarrotes.jpg"
+                            width="60">
+                        <h6 class="mt-2">Abarrotes</h6>
+                    </div>
+                </a>
+            </div>
+
+            <!-- LIMPIEZA -->
+            <div class="col-6 col-md-3 text-center">
+                <a href="{{ url_for('productos') }}?categoria=Limpieza" class="text-decoration-none text-dark">
+                    <div class="p-3 shadow-sm rounded-4 bg-white h-100">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1046/1046786.png" width="60">
+                        <h6 class="mt-2">Limpieza</h6>
+                    </div>
+                </a>
+            </div>
+
+            <!-- HIGIENE PERSONAL -->
+            <div class="col-6 col-md-3 text-center">
+                <a href="{{ url_for('productos') }}?categoria=Higiene%20personal"
+                    class="text-decoration-none text-dark">
+                    <div class="p-3 shadow-sm rounded-4 bg-white h-100">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2921/2921822.png" width="60">
+                        <h6 class="mt-2">Higiene personal</h6>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- VENTAJAS GOMART          -->
+    <!-- ========================= -->
+    <section class="my-5">
+        <h2 class="mb-4">¿Por qué comprar en GoMart?</h2>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="p-4 rounded-4 shadow-sm bg-white h-100">
+                    <h5 class="fw-bold">⏱️ Abierto casi todo el día</h5>
+                    <p class="text-muted">
+                        Encuentra todo lo que necesitas sin preocuparte por horarios complicados.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p-4 rounded-4 shadow-sm bg-white h-100">
+                    <h5 class="fw-bold">🚗 Sucursales cerca de ti</h5>
+                    <p class="text-muted">
+                        Siempre hay una GoMart disponible, sin necesidad de recorrer largas distancias.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p-4 rounded-4 shadow-sm bg-white h-100">
+                    <h5 class="fw-bold">⚡Compra rápida</h5>
+                    <p class="text-muted">
+                        Acceso inmediato a bebidas, comida rápida y productos esenciales.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- SUCURSALES               -->
+    <!-- ========================= -->
+    <section id="sucursales" class="mb-5">
+        <div class="d-flex justify-content-between align-items-end mb-3">
+            <h2 class="section-title">Sucursales cercanas</h2>
+            <a href="https://www.google.com/maps/search/GoMart" target="_blank" class="text-decoration-none">
+                Ver mapa →
+            </a>
+        </div>
+
+        <div class="row gy-4">
+            {% for sucursal in sucursales %}
+            <div class="col-md-4">
+                <div class="store-card bg-white rounded-4 shadow-sm overflow-hidden">
+                    <img src="{{ sucursal.img }}" alt="{{ sucursal.nombre }}">
+                    <div class="p-3">
+                        <h6 class="mb-1">{{ sucursal.nombre }}</h6>
+                        <p class="small text-muted mb-1">{{ sucursal.direccion }}</p>
+                        <p class="small mb-0 text-muted">Horario: {{ sucursal.horario }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+</main>
+
+{% endblock %}

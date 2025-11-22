@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Crear una cuenta</h5>
+            </div>
+
+            <div class="card-body">
+
+                {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+
+                <form method="POST">
+
+                    <!-- NOMBRE COMPLETO -->
+                    <div class="mb-3">
+                        <label class="form-label">Nombre completo</label>
+                        <input type="text" class="form-control" name="nombre"
+                            value="{{ datos.nombre if datos else '' }}" placeholder="Tu nombre completo" required>
+                    </div>
+
+                    <!-- USUARIO -->
+                    <div class="mb-3">
+                        <label class="form-label">Nombre de usuario</label>
+                        <input type="text" class="form-control" name="usuario"
+                            value="{{ datos.usuario if datos else '' }}" placeholder="Ej: juan23, maria_cg" required>
+                    </div>
+
+                    <!-- CORREO -->
+                    <div class="mb-3">
+                        <label class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" name="correo"
+                            value="{{ datos.correo if datos else '' }}" placeholder="correo@ejemplo.com" required>
+                    </div>
+
+                    <!-- PASSWORD -->
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" name="password" placeholder="Crear contraseña"
+                            minlength="6" required>
+                    </div>
+
+                    <button class="btn btn-primary w-100">Registrar</button>
+                </form>
+
+                <p class="text-center mt-3">
+                    ¿Ya tienes una cuenta?
+                    <a href="{{ url_for('login') }}">Inicia sesión</a>
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="mb-4">Carrito de compras</h3>
+
+{% if items|length == 0 %}
+<div class="alert alert-info text-center">
+    Tu carrito está vacío.
+    <br><br>
+    <a href="{{ url_for('productos') }}" class="btn btn-primary">Ver productos</a>
+</div>
+{% else %}
+
+<div class="row">
+    <div class="col-md-8">
+
+        <ul class="list-group">
+
+            {% for item in items %}
+            <li class="list-group-item">
+                <div class="d-flex align-items-center">
+
+                    <!-- IMG -->
+                    <img src="{{ item.imagen }}" class="rounded" style="width:80px; height:80px; object-fit:cover;">
+
+                    <div class="ms-3 flex-grow-1">
+                        <h6 class="mb-1">{{ item.nombre }}</h6>
+                        <p class="text-muted small mb-0">
+                            Precio unitario: ${{ "%.2f"|format(item.precio) }}
+                        </p>
+                    </div>
+
+                    <!-- Controles (+ , - ) -->
+                    <div class="d-flex align-items-center">
+
+                        <!-- RESTAR -->
+                        <button class="btn btn-sm btn-outline-secondary me-1"
+                            onclick="updateCart('{{ item._id }}', 'remove')">-</button>
+
+                        <span class="mx-2">{{ item.cantidad }}</span>
+
+                        <!-- SUMAR -->
+                        <button class="btn btn-sm btn-outline-secondary ms-1"
+                            onclick="updateCart('{{ item._id }}', 'add')">+</button>
+
+                    </div>
+
+                    <!-- Subtotal -->
+                    <span class="ms-4 fw-bold">
+                        ${{ "%.2f"|format(item.subtotal) }}
+                    </span>
+
+                    <!-- Eliminar -->
+                    <button class="btn btn-sm btn-danger ms-3"
+                        onclick="updateCart('{{ item._id }}', 'delete')">X</button>
+
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm p-3">
+            <h5 class="mb-3">Resumen de compra</h5>
+
+            <p class="d-flex justify-content-between">
+                <span>Total</span>
+                <strong id="total">${{ "%.2f"|format(total) }}</strong>
+            </p>
+
+            <a href="{{ url_for('pago') }}" class="btn btn-primary w-100 mt-3">
+                Ir al pago
+            </a>
+
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

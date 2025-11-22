@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>GOmart {{ title if title else '' }}</title>
+
+    <!-- Bootstrap + Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: Inter, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% include 'footer.html' %}
+
+    <!-- Bootstrap FIX -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        /* ============================================================
+           🔥 AGREGAR PRODUCTO AL CARRITO (VISTA PRODUCTOS)
+        ============================================================ */
+        function agregarAlCarrito(id) {
+            fetch("/api/add_cart", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id })
+            })
+                .then(r => r.json())
+                .then(res => {
+                    if (!res.ok) {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Atención",
+                            text: res.msg
+                        });
+                        return;
+                    }
+
+                    // Toast bonito
+                    Swal.fire({
+                        toast: true,
+                        position: "bottom-end",
+                        icon: "success",
+                        title: "Producto agregado al carrito",
+                        showConfirmButton: false,
+                        timer: 1400
+                    });
+
+                    actualizarCarritoUI();
+                });
+        }
+
+        /* ============================================================
+           🔄 ACTUALIZAR CONTADOR EN ICONO DEL CARRITO
+        ============================================================ */
+        function actualizarCarritoUI() {
+            fetch("/api/cart/count")
+                .then(r => r.json())
+                .then(data => {
+                    const badge = document.getElementById("carrito-count");
+
+                    if (badge) {
+                        badge.textContent = data.total;
+                        badge.style.display = data.total > 0 ? "inline-block" : "none";
+                    }
+                });
+        }
+        document.addEventListener("DOMContentLoaded", actualizarCarritoUI);
+
+
+        /* ============================================================
+           🔁 SUMAR / RESTAR / ELIMINAR PRODUCTO (VISTA CARRITO)
+        ============================================================ */
+        function updateCart(id, action) {
+            let url = "";
+
+            if (action === "add") url = "/api/cart/add";
+            if (action === "remove") url = "/api/cart/remove";
+            if (action === "delete") url = "/api/cart/delete";
+
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id })
+            })
+                .then(r => r.json())
+                .then(res => {
+                    if (res.ok) {
+                        actualizarCarritoUI();
+                        location.reload(); // actualizar totales
+                    }
+                });
+        }
+
+        /* ============================================================
+           🛒 FINALIZAR COMPRA
+        ============================================================ */
+        function finalizarCompra() {
+            Swal.fire({
+                icon: "success",
+                title: "Compra realizada correctamente",
+                confirmButtonText: "Aceptar"
+            }).then(() => {
+                location.href = "/";
+            });
+        }
+    </script>
+
+</body>
+
+</html>
