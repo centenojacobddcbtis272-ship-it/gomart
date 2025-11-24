@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+    <h3>Editar nombre</h3>
+    <hr>
+
+    <form method="POST">
+        <label>Nuevo nombre:</label>
+        <input type="text" name="nombre" class="form-control" value="{{ user.nombre_completo }}" required>
+
+        <button class="btn btn-primary mt-3">Guardar cambios</button>
+        <a href="{{ url_for('perfil') }}" class="btn btn-secondary mt-3">Cancelar</a>
+    </form>
+</div>
+
+{% endblock %}

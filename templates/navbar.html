@@ -78,9 +78,10 @@
                 {% else %}
 
                 <!-- Nombre usuario -->
-                <span class="text-muted small me-2">
+                <a href="{{ url_for('perfil') }}" class="text-muted small me-2 text-decoration-none">
                     👤 {{ user.nombre_completo }}
-                </span>
+                </a>
+
 
                 <!-- Carrito visible siempre -->
                 <a class="btn btn-outline-primary position-relative me-3" href="{{ url_for('carrito') }}">

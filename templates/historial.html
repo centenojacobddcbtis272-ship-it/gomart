@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+    <h3>Historial de compras</h3>
+    <hr>
+
+    {% if compras|length == 0 %}
+    <div class="alert alert-info">No has realizado compras todavía.</div>
+    {% else %}
+    {% for compra in compras %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <p><strong>Fecha:</strong> {{ compra.fecha }}</p>
+            <p><strong>Artículos:</strong></p>
+
+            <ul>
+                {% for item in compra.items %}
+                <li>{{ item.nombre }} x {{ item.cantidad }} — ${{ item.precio }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+</div>
+
+{% endblock %}

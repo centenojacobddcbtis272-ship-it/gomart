@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+
+    <h3>Cambiar foto de perfil</h3>
+    <hr>
+
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        <label>Seleccionar nueva foto:</label>
+        <input type="file" name="foto" class="form-control" required>
+
+        <button class="btn btn-info text-white mt-3">Subir</button>
+        <a href="{{ url_for('perfil') }}" class="btn btn-secondary mt-3">Cancelar</a>
+    </form>
+
+</div>
+
+{% endblock %}
