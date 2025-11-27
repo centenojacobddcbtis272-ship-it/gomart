@@ -33,7 +33,6 @@
                     <!-- Controles -->
                     <div class="d-flex align-items-center">
 
-                        <!-- RESTAR -->
                         <button class="btn btn-sm btn-outline-secondary me-1"
                             onclick="updateCart('{{ item._id }}', 'remove')">
                             -
@@ -41,7 +40,6 @@
 
                         <span class="mx-2">{{ item.cantidad }}</span>
 
-                        <!-- SUMAR -->
                         <button class="btn btn-sm btn-outline-secondary ms-1"
                             onclick="updateCart('{{ item._id }}', 'add')">
                             +
@@ -49,12 +47,10 @@
 
                     </div>
 
-                    <!-- Subtotal -->
                     <span class="ms-4 fw-bold">
                         ${{ "%.2f"|format(item.subtotal) }}
                     </span>
 
-                    <!-- Eliminar -->
                     <button class="btn btn-sm btn-danger ms-3" onclick="updateCart('{{ item._id }}', 'delete')">
                         X
                     </button>

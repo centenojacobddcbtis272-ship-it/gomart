@@ -177,6 +177,9 @@ def api_buscar():
 # ============================================================
 # CARRITO
 # ============================================================
+# ============================================================
+# CARRITO
+# ============================================================
 @app.route("/carrito")
 def carrito():
     if not usuario_actual():
@@ -192,12 +195,9 @@ def carrito():
         for item in carrito["items"]:
             prod = db.productos.find_one({"_id": item["producto_id"]})
             if prod:
+                prod["_id"] = str(prod["_id"])  # <-- IMPORTANTE
                 prod["cantidad"] = item["cantidad"]
                 prod["subtotal"] = prod["precio"] * prod["cantidad"]
-
-                # 🔥 FIX IMPORTANTE
-                prod["_id"] = str(prod["_id"])
-
                 total += prod["subtotal"]
                 items.append(prod)
 
@@ -297,7 +297,6 @@ def add_cart():
     return jsonify({"ok": True})
 
 
-# SUMAR / RESTAR / ELIMINAR
 @app.route("/api/cart/add", methods=["POST"])
 def cart_add():
     if not usuario_actual():
@@ -366,6 +365,7 @@ def cart_delete():
     )
 
     return jsonify({"ok": True})
+
 
 
 @app.route("/api/cart/count")
