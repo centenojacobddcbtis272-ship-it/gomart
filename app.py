@@ -404,19 +404,28 @@ def editar_perfil():
 
     if request.method == "POST":
         nuevo_nombre = request.form["nombre"]
-        nueva_direccion = request.form.get("direccion", "")
+
+        direccion = {
+            "calle": request.form["calle"],
+            "numero": request.form["numero"],
+            "colonia": request.form["colonia"],
+            "ciudad": request.form["ciudad"],
+            "estado": request.form["estado"],
+            "cp": request.form["cp"]
+        }
 
         db.usuarios.update_one(
             {"_id": user["_id"]},
             {"$set": {
                 "nombre_completo": nuevo_nombre,
-                "direccion": nueva_direccion
+                "direccion": direccion
             }}
         )
 
         return redirect(url_for("perfil"))
 
     return render_template("editar_perfil.html", user=user)
+
 
 
 @app.route("/perfil/password", methods=["GET", "POST"])

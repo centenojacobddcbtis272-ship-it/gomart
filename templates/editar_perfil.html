@@ -2,39 +2,59 @@
 {% block content %}
 
 <div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow" style="max-width: 550px; width:100%;">
+        <div class="card-body p-4">
 
-    <div class="card shadow" style="max-width: 450px; width: 100%;">
-        <div class="card-body">
-
-            <h3 class="text-center mb-3">Editar información</h3>
-            <hr>
+            <h3 class="text-center mb-4">Editar información</h3>
 
             <form method="POST">
-
                 <!-- Nombre -->
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Nombre completo</label>
-                    <input type="text" name="nombre" class="form-control" value="{{ user.nombre_completo }}" required>
+                <label class="fw-bold">Nombre completo</label>
+                <input type="text" name="nombre" class="form-control mb-3" value="{{ user.nombre_completo }}" required>
+
+                <h5 class="mt-4 mb-3">Dirección de envío</h5>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="fw-bold">Calle</label>
+                        <input type="text" name="calle" class="form-control mb-3"
+                            value="{{ user.direccion.calle if user.direccion else '' }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Número</label>
+                        <input type="text" name="numero" class="form-control mb-3"
+                            value="{{ user.direccion.numero if user.direccion else '' }}" required>
+                    </div>
                 </div>
 
-                <!-- Dirección -->
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Dirección de envío</label>
-                    <textarea name="direccion" class="form-control" rows="3"
-                        placeholder="Ej: Calle 1 #123, Col. Centro">{{ user.direccion }}</textarea>
+                <label class="fw-bold">Colonia</label>
+                <input type="text" name="colonia" class="form-control mb-3"
+                    value="{{ user.direccion.colonia if user.direccion else '' }}" required>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="fw-bold">Ciudad</label>
+                        <input type="text" name="ciudad" class="form-control mb-3"
+                            value="{{ user.direccion.ciudad if user.direccion else '' }}" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="fw-bold">Estado</label>
+                        <input type="text" name="estado" class="form-control mb-3"
+                            value="{{ user.direccion.estado if user.direccion else '' }}" required>
+                    </div>
                 </div>
 
-                <button class="btn btn-primary w-100 mt-3">Guardar cambios</button>
+                <label class="fw-bold">Código Postal</label>
+                <input type="number" name="cp" class="form-control mb-4"
+                    value="{{ user.direccion.cp if user.direccion else '' }}" required>
 
-                <a href="{{ url_for('perfil') }}" class="btn btn-secondary w-100 mt-2">
-                    Cancelar
-                </a>
-
+                <button class="btn btn-primary w-100 mb-2">Guardar cambios</button>
+                <a href="{{ url_for('perfil') }}" class="btn btn-secondary w-100">Cancelar</a>
             </form>
 
         </div>
     </div>
-
 </div>
 
 {% endblock %}
