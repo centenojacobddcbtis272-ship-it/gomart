@@ -42,7 +42,7 @@ items = [
     # LIMPIEZA
     {"nombre": "Cloro Cloralex 1L", "precio": 22,
      "categoria": "Limpieza",
-     "imagen": "/static/img/productos/clorocloralex.webp"},
+     "imagen": "/static/img/productos/cloroCloralex.webp"},
     {"nombre": "Jabón Zote Rosa 400g", "precio": 12,
      "categoria": "Limpieza",
      "imagen": "/static/img/productos/ZOTE400G.webp"},
