@@ -30,18 +30,22 @@
                         </p>
                     </div>
 
-                    <!-- Controles (+ , - ) -->
+                    <!-- Controles -->
                     <div class="d-flex align-items-center">
 
                         <!-- RESTAR -->
                         <button class="btn btn-sm btn-outline-secondary me-1"
-                            onclick="updateCart('{{ item._id }}', 'remove')">-</button>
+                            onclick="updateCart('{{ item._id }}', 'remove')">
+                            -
+                        </button>
 
                         <span class="mx-2">{{ item.cantidad }}</span>
 
                         <!-- SUMAR -->
                         <button class="btn btn-sm btn-outline-secondary ms-1"
-                            onclick="updateCart('{{ item._id }}', 'add')">+</button>
+                            onclick="updateCart('{{ item._id }}', 'add')">
+                            +
+                        </button>
 
                     </div>
 
@@ -51,8 +55,9 @@
                     </span>
 
                     <!-- Eliminar -->
-                    <button class="btn btn-sm btn-danger ms-3"
-                        onclick="updateCart('{{ item._id }}', 'delete')">X</button>
+                    <button class="btn btn-sm btn-danger ms-3" onclick="updateCart('{{ item._id }}', 'delete')">
+                        X
+                    </button>
 
                 </div>
             </li>
