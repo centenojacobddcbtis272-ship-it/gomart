@@ -16,8 +16,16 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 # === CONEXIÓN A MONGO ===
-client = MongoClient(config.MONGO_URI)
-db = client.gomart
+MONGO_URI = os.getenv("MONGO_URI")
+
+if MONGO_URI:
+    print("✔ Conectado a MongoDB Atlas")
+else:
+    print("❌ ERROR: No se encontró la variable MONGO_URI")
+    raise Exception("Agrega MONGO_URI en Render")
+
+client = MongoClient(MONGO_URI)
+db = client["gomart"]
 
 
 # ============================================================
