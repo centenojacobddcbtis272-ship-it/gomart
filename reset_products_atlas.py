@@ -1,24 +1,14 @@
 from pymongo import MongoClient
-from config import MONGO_URI   # <-- USAMOS config.py
-import sys
-
-# ===========================================================
-# CONECTAR A MONGO ATLAS (desde config.py)
-# ===========================================================
-if not MONGO_URI:
-    print("❌ ERROR: No existe MONGO_URI en config.py")
-    sys.exit()
+from config import MONGO_URI
 
 client = MongoClient(MONGO_URI)
 db = client["gomart"]
 productos = db["productos"]
 
-# ===========================================================
-# LISTA DE PRODUCTOS
-# ===========================================================
-items = [
+productos.delete_many({})
+print("🗑 Todos los productos eliminados.")
 
-    # ---------------- BEBIDAS ----------------
+items = [
     {"nombre": "Pepsi 600ml", "precio": 18.5, "categoria": "Bebidas",
      "imagen": "/static/img/productos/pepsi600ml.webp"},
 
@@ -28,7 +18,6 @@ items = [
     {"nombre": "Agua Bonafont 1L", "precio": 14.0, "categoria": "Bebidas",
      "imagen": "/static/img/productos/bonafont1l.webp"},
 
-    # ---------------- SNACKS ----------------
     {"nombre": "Sabritas Chips 500g", "precio": 50,
      "categoria": "Snacks",
      "imagen": "/static/img/productos/chips500g.webp"},
@@ -41,16 +30,14 @@ items = [
      "categoria": "Snacks",
      "imagen": "/static/img/productos/chetostorciditos.webp"},
 
-    # ---------------- DULCES ----------------
     {"nombre": "Chocolate Hershey 40g", "precio": 15,
      "categoria": "Dulces",
-     "imagen": "/static/img/productos/chocolatehershey.webp"},
+     "imagen": "/static/img/productos/chocolatehershey´s.webp"},
 
     {"nombre": "M&M's 49g", "precio": 25,
      "categoria": "Dulces",
-     "imagen": "/static/img/productos/MYMS.webp"},
+     "imagen": "/static/img/productos/M&M´s.webp"},
 
-    # ---------------- LIMPIEZA ----------------
     {"nombre": "Cloro Cloralex 1L", "precio": 22,
      "categoria": "Limpieza",
      "imagen": "/static/img/productos/cloro_cloralex.webp"},
@@ -63,7 +50,6 @@ items = [
      "categoria": "Limpieza",
      "imagen": "/static/img/productos/pinol.webp"},
 
-    # ---------------- HIGIENE PERSONAL ----------------
     {"nombre": "Shampoo Head & Shoulders 375ml", "precio": 55.0,
      "categoria": "Higiene personal",
      "imagen": "/static/img/productos/head.webp"},
@@ -72,7 +58,6 @@ items = [
      "categoria": "Higiene personal",
      "imagen": "/static/img/productos/dove.webp"},
 
-    # ---------------- ABARROTES ----------------
     {"nombre": "Arroz Verde Valle 1kg", "precio": 32,
      "categoria": "Abarrotes",
      "imagen": "/static/img/productos/arroz_verde.webp"},
@@ -82,20 +67,5 @@ items = [
      "imagen": "/static/img/productos/arrozperuano.webp"},
 ]
 
-# ===========================================================
-# SUBIR PRODUCTOS (EVITA DUPLICADOS)
-# ===========================================================
-insertados = 0
-
-for item in items:
-    existe = productos.find_one({"nombre": item["nombre"]})
-    if existe:
-        print(f"⚠️ Ya existe: {item['nombre']}")
-    else:
-        productos.insert_one(item)
-        print(f"✔ Insertado: {item['nombre']}")
-        insertados += 1
-
-print("\n=========================================")
-print(f"✔ Subida completada. Total insertados: {insertados}")
-print("=========================================\n")
+productos.insert_many(items)
+print("✔ Productos reiniciados e insertados correctamente.")
