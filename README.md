@@ -1,2 +1,2 @@
-# gomart
+
 # mi tienda online
